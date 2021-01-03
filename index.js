@@ -6,7 +6,7 @@ console.log("Você precisará de NodeJS,Java e Python e TypeScript instalados")
 
 const codeWillContinue = readline.question('Deseja continuar (yes/no): ')
 if(codeWillContinue.match(/no/gi) !== null || codeWillContinue.match(/nao/gi) !== null) {
-    codeWillContinue.exit(0);
+    process.exit(0);
 }
 
 const separeOutput = () => console.log('-----------------------------------------------------------------------------')
@@ -17,18 +17,33 @@ const showResultOfCoding = (language,code) => {
     separeOutput()
 }
 
-const requestJS = readline.question('Insira o codigo JavaScript: ')
-const codigoJS = exec(`node -p "${requestJS}"`,{ silent: true})
-showResultOfCoding('JavaScript',codigoJS)
+const willUseThis = (language,callback) => {
+    const willUseThatLanguage = readline.question(`Deseja usar ${language} (yes/no): `)
+    if(willUseThatLanguage.match(/y/gi) !== null || willUseThatLanguage.match(/sim/gi) !== null) {
+        callback();
+    }
+}
 
-const requestTS = readline.question('Insira o codigo TypeScript:')
-const codigoTS = exec(`echo ${requestTS} > main.ts && tsc main.ts && node main.js`,{ silent: true})
-showResultOfCoding('TypeScript',codigoTS)
+willUseThis('JS',() => {
+    const requestJS = readline.question('Insira o codigo JavaScript: ')
+    const codigoJS = exec(`node -p "${requestJS}"`,{ silent: true})
+    showResultOfCoding('JavaScript',codigoJS)
+})
 
-const requestPython = readline.question('Insira o codigo Python: ')
-const codigoPython = exec(`echo ${requestPython} > arquivo.py && python arquivo.py`,{ silent: true});
-showResultOfCoding('Python',codigoPython)
+willUseThis('TS',() => {
+    const requestTS = readline.question('Insira o codigo TypeScript:')
+    const codigoTS = exec(`echo ${requestTS} > main.ts && tsc main.ts && node main.js`,{ silent: true})
+    showResultOfCoding('TypeScript',codigoTS)
+})
 
-const requestJava = readline.question('Insira o codigo Java: ')
-const codigoJava = exec(`echo ${requestJava} > Main.java && javac Main.java && java Main`,{ silent: true})
-showResultOfCoding('Java',codigoJava)
+willUseThis('Python',() => {
+    const requestPython = readline.question('Insira o codigo Python: ')
+    const codigoPython = exec(`echo ${requestPython} > arquivo.py && python arquivo.py`,{ silent: true});
+    showResultOfCoding('Python',codigoPython)
+})
+
+willUseThis('Java',() => {
+    const requestJava = readline.question('Insira o codigo Java: ')
+    const codigoJava = exec(`echo ${requestJava} > Main.java && javac Main.java && java Main`,{ silent: true})
+    showResultOfCoding('Java',codigoJava)
+})
