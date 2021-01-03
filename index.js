@@ -2,11 +2,11 @@ const { exec } = require('shelljs');
 const readline = require('readline-sync');
 
 console.log("Executor universal de código")
-console.log("Você precisará de NodeJs,Java e Python instalados")
+console.log("Você precisará de NodeJS,Java e Python e TypeScript instalados")
 
-const willContinue = readline.question('Deseja continuar (yes/no): ')
-if(willContinue.match(/no/gi) !== null || willContinue.match(/nao/gi)){
-    process.exit(0);
+const codeWillContinue = readline.question('Deseja continuar (yes/no): ')
+if(codeWillContinue.match(/no/gi) !== null || codeWillContinue.match(/nao/gi) !== null) {
+    codeWillContinue.exit(0);
 }
 
 const separeOutput = () => console.log('-----------------------------------------------------------------------------')
@@ -20,6 +20,10 @@ const showResultOfCoding = (language,code) => {
 const requestJS = readline.question('Insira o codigo JavaScript: ')
 const codigoJS = exec(`node -p "${requestJS}"`,{ silent: true})
 showResultOfCoding('JavaScript',codigoJS)
+
+const requestTS = readline.question('Insira o codigo TypeScript:')
+const codigoTS = exec(`echo ${requestTS} > main.ts && tsc main.ts && node main.js`,{ silent: true})
+showResultOfCoding('TypeScript',codigoTS)
 
 const requestPython = readline.question('Insira o codigo Python: ')
 const codigoPython = exec(`echo ${requestPython} > arquivo.py && python arquivo.py`,{ silent: true});
