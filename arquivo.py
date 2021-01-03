@@ -1,1 +1,1 @@
-print(5 + 20)  
+print('Hello in Python')  
