@@ -25,7 +25,6 @@ const requestPython = readline.question('Insira o codigo Python: ')
 const codigoPython = exec(`echo ${requestPython} > arquivo.py && python arquivo.py`,{ silent: true});
 showResultOfCoding('Python',codigoPython)
 
-//class Main {public static void main(String[] args) {System.out.println("Hello World"); } };
 const requestJava = readline.question('Insira o codigo Java: ')
 const codigoJava = exec(`echo ${requestJava} > Main.java && javac Main.java && java Main`,{ silent: true})
 showResultOfCoding('Java',codigoJava)
